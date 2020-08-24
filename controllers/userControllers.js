@@ -19,7 +19,6 @@ router.post('/', (req, res)=>{
             if(id){
                 res.json(id)
             } else {
-                console.log(error)
                 res.sendStatus(500)
             }
         } else {
@@ -41,7 +40,6 @@ router.get('/', (req, res)=>{
             if(user){
                 res.json(user)
             } else {
-                console.log(err)
                 res.sendStatus(500)
             }
         })
@@ -63,7 +61,6 @@ router.get('/:id', (req, res)=>{
             if(user){
                 res.json(user)
             } else {
-                console.log(err)
                 res.sendStatus(500)
             }
         })
@@ -83,7 +80,6 @@ router.put('/:id', (req, res) => {
         if(id){
             res.json(user)
         } else {
-            console.log(err)
             res.sendStatus(400)
         }
     })
@@ -100,7 +96,6 @@ router.get('/:id/edit', (req, res)=>{
             if(user){
                 res.json(user)
             } else {
-                console.log(err)
                 res.sendStatus(500)
             }
         })

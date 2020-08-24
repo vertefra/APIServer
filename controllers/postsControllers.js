@@ -1,9 +1,6 @@
 const router = require('express').Router()
 const returnParams = require('../utils/utlis.js')
 const FbUser = require('../utils/FbUser.js')
-const { json } = require('express')
-
-
 
 // POST post :)
 
@@ -15,7 +12,6 @@ router.post('/', (req, res)=>{
         if(data){
             res.json(data)
         } else {
-            console.log(err)
             res.sendStatus(500)
         }
     })
@@ -42,13 +38,15 @@ router.put('/:postId/edit', (req, res)=>{
     const user = new FbUser()
     user.updatePost(postOwnerId, postId, postContent, (err, data)=>{
         if(data){
-            console.log(data)
+            res.json({action: 'modified', data:data})
         } else {
-            console.log(err)
+            res.sendStatus(500)
         }
     })
 
 })
+
+// Edit Likes Put route
 
 router.put('/:postId', (req, res)=>{
     [ postOwnerId, postId ] = returnParams(req)
