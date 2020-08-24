@@ -34,6 +34,22 @@ router.get('/', (req, res)=>{
     })
 })
 
+// EDIT POST CONTENT
+
+router.put('/:postId/edit', (req, res)=>{
+    const [ postOwnerId, postId ] = returnParams(req)
+    const postContent = req.body.postContent
+    const user = new FbUser()
+    user.updatePost(postOwnerId, postId, postContent, (err, data)=>{
+        if(data){
+            console.log(data)
+        } else {
+            console.log(err)
+        }
+    })
+
+})
+
 router.put('/:postId', (req, res)=>{
     [ postOwnerId, postId ] = returnParams(req)
     const userWhoLikesId = req.body.userId

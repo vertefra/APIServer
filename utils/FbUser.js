@@ -242,18 +242,27 @@ class FbUser {
     }
 
     deletePost(postOwnerId, postId, cb){
-        console.log('ID TO FIND >> ', postId)
-        User.update({_id:postOwnerId,},
+        User.update({_id:postOwnerId},
             { "$pull": { posts: { _id: postId} }}, (err, data)=>{
             if(data){
                 this.getPosts(postOwnerId, (err, data)=>{
-                    console.log(data)
                     return cb(undefined, {action: 'removed', posts: data})
                 })
             } else {
                 return cb({action: 'failed to remove', error: err}, undefined)
             }
         })
+    }
+
+    updatePost(postOwnerId, postId, content, cb){
+        User.update({_id:postOwnerId, "posts._id":postId },
+            { "$set": { "posts.$.content": content}}, (err, data)=>{
+                if(data){
+                    console.log(data)
+                } else {
+                    console.log(err)
+                }
+            })
     }
 }
 
