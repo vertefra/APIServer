@@ -66,6 +66,12 @@ app.use('/user/:userId/friends', friendControllers)
 const postsControllers = require('./controllers/postsControllers.js')
 app.use('/user/:userId/posts', postsControllers)
 
+// images route
+
+const imagesControllers = require('./controllers/imagesControllers.js')
+app.use('/images', imagesControllers)
+
+
 app.listen(PORT, ()=>{
     console.log('server listening on port: ',PORT)
 })
