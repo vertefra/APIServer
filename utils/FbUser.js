@@ -58,10 +58,8 @@ class FbUser {
     }
 
     getUserById(id, cb){
-        console.log('id in getUser by id ', id)
         User.findById(id, (err, user)=>{
             if(user){
-                console.log('user in get user by id', user)
                 const userObj = {
                     id: user._id,
                     first_name: user.first_name,
@@ -258,12 +256,14 @@ class FbUser {
         User.update({_id:postOwnerId, "posts._id":postId },
             { "$set": { "posts.$.content": content}}, (err, data)=>{
                 if(data){
-                    console.log(data)
+                    return cb(undefined, data)
                 } else {
-                    console.log(err)
+                    return cb(err, undefined)
                 }
             })
     }
+
 }
+
 
 module.exports = FbUser

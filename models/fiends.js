@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose')
 
 const friendSchema = new mongoose.Schema({
-    friend_id : { type: String, require: true, unique: true },
+    friend_id : { type: String, require: true, unique: false },
     friend_username: { type: String, require: true },
     friend_city: { type: String, require: false },
     food_in_common: [

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const returnParams = require('../utils/utlis.js')
+const { returnParams, createFeed, sortFeed } = require('../utils/utlis.js')
 const FbUser = require('../utils/FbUser.js')
 
 // POST post :)
@@ -21,13 +21,28 @@ router.post('/', (req, res)=>{
 router.get('/', (req, res)=>{
     const id = returnParams(req)[0]
     const user = new FbUser()
-    user.getPosts(id, (err, data)=>{
+    if(req.query.mode==='feed'){
+        // if the query string is set in mode===feed means the 
+        // we are looking for specific posts for the user feed
+        createFeed(id, (err, feed)=>{
+            if(feed){
+                console.log(sortFeed(feed))
+            } else {
+                console.log(err)
+            }
+        })
+        
+    } else {
+        
+        user.getPosts(id, (err, data)=>{
         if(data){
             res.json(data)
         } else {
             res.sendStatus(404)
         }
     })
+    }
+    
 })
 
 // EDIT POST CONTENT
