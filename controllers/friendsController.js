@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const FbFriend = require('../utils/FbFriend.js')
-const returnParams = require('../utils/utlis.js')
+const {returnParams} = require('../utils/utlis.js')
 
 
 router.post('/:friendId', (req, res)=>{

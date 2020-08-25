@@ -32,7 +32,7 @@ const getFriendsPosts = (id, cb) => {
                             return cb(undefined, feed)
                         }
                     }
-                }).select('posts username profile_img')
+                }).select('posts username profile_img _id')
             }
         } else {
             return cb(err, undefined)
@@ -48,6 +48,7 @@ const createFeed = (id, cb) => {
             for(let entry of arrayOfPosts){
                 for(let post of entry.posts){
                     const feedObj = {
+                        owner_id: entry._id,
                         owner: entry.username,
                         profile_img: entry.profile_img,
                         likes: post.likes,

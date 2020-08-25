@@ -26,9 +26,10 @@ router.get('/', (req, res)=>{
         // we are looking for specific posts for the user feed
         createFeed(id, (err, feed)=>{
             if(feed){
-                console.log(sortFeed(feed))
+                res.json(sortFeed(feed))
             } else {
                 console.log(err)
+                res.sendStatus(500)
             }
         })
         
