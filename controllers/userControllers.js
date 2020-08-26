@@ -2,6 +2,7 @@
 
 const router = require('express').Router()
 const FbUser = require('../utils/FbUser.js')
+const User = require('../models/users.js')
 
 
 router.post('/', (req, res)=>{
@@ -101,6 +102,33 @@ router.get('/:id/edit', (req, res)=>{
         })
     } catch(err) {
         res.sendStatus(500)
+    }
+})
+
+router.delete('/:id', (req, res)=>{
+    const idToClean = req.query.clean
+    console.log('clean? :',idToClean)
+    if(idToClean!=='owner'){
+        console.log('CLEAN MODE', idToClean)
+        const user = new FbUser()
+        user.cleanDeletedFriend(req.params.id, idToClean, (err, data)=>{
+            if(data){
+                res.json({ success: true })
+            } else {
+                res.json({ sucess: false })
+            }
+        })
+    } else if(idToClean==='owner'){
+        User.findByIdAndDelete(req.params.id, (err, data)=>{
+            if(data){
+                res.json({ success: true, deletedUser: data.username })
+            } else {
+                console.log(err)
+                res.sendStatus(404)
+            }
+        })
+    } else {
+        res.json({ success: false , message: 'not a valid mode' })
     }
 })
 

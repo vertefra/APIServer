@@ -263,6 +263,16 @@ class FbUser {
             })
     }
 
+    cleanDeletedFriend(ownerId, friendId, cb){
+        User.update({_id:ownerId}, {$pull: { friends: friendId }}, (err, data)=>{
+                if(data){
+                    return cb(undefined, data)
+                } else {
+                    return cb(err, undefined)
+                }
+            })
+    }
+
 }
 
 
